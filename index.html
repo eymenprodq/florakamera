@@ -178,9 +178,7 @@
         <header class="sticky top-0 z-50 backdrop-blur-md bg-darkNavy/80 border-b border-neonBlue/30 px-6 py-4 transition-all duration-300">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
                 <div class="flex items-center space-x-3 group cursor-pointer">
-                    <div class="w-10 h-10 rounded-full bg-neonBlue/20 border border-neonBlue flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_15px_#00f0ff]">
-                        <i class="fa-solid fa-camera-retro text-neonBlue text-xl group-hover:rotate-12 transition-transform"></i>
-                    </div>
+                    <img src="https://florakameracilik.vercel.app/florakamera.png" alt="Flora Kameracılık Logo" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_10px_#00f0ff]">
                     <div>
                         <span class="text-2xl font-black tracking-widest text-white block leading-none">FLORA</span>
                         <span class="text-xs font-bold tracking-widest text-neonBlue block">KAMERACILIK</span>
@@ -355,7 +353,7 @@
             </div>
         </section>
 
-        <!-- Hizmetlerimiz Bölümü (Eksiksiz) -->
+        <!-- Hizmetlerimiz Bölümü -->
         <section id="services" class="py-20 px-4 relative bg-darkNavy/80">
             <div class="max-w-7xl mx-auto text-center">
                 <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
@@ -453,7 +451,7 @@
             </div>
         </section>
 
-        <!-- Müşteri Görüşleri ve Yorum Forumu (Kalıcı LocalStorage) -->
+        <!-- Müşteri Görüşleri ve Yorum Forumu -->
         <section id="reviews" class="py-20 px-4 bg-cover bg-center relative" style="background-image: linear-gradient(to bottom, rgba(2, 9, 22, 0.9), rgba(2, 9, 22, 0.95)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920&auto=format&fit=crop');">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
@@ -496,9 +494,12 @@
         <!-- Footer -->
         <footer class="bg-black/90 border-t-2 border-neonBlue/30 py-12 px-4 text-center relative z-10">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="text-left">
-                    <span class="text-2xl font-black tracking-widest text-white block">FLORA KAMERACILIK</span>
-                    <span class="text-xs text-neonBlue font-bold tracking-widest uppercase">Elazığ Profesyonel Medya Hizmetleri</span>
+                <div class="flex items-center space-x-3 text-left">
+                    <img src="https://florakameracilik.vercel.app/florakamera.png" alt="Flora Kameracılık Logo" class="w-10 h-10 object-contain">
+                    <div>
+                        <span class="text-2xl font-black tracking-widest text-white block">FLORA KAMERACILIK</span>
+                        <span class="text-xs text-neonBlue font-bold tracking-widest uppercase">Elazığ Profesyonel Medya Hizmetleri</span>
+                    </div>
                 </div>
 
                 <div class="flex items-center space-x-6 text-sm font-bold">
@@ -518,7 +519,7 @@
             </div>
         </footer>
 
-        <!-- WhatsApp Butonu (Sol Alt Köşeye Taşındı) -->
+        <!-- WhatsApp Butonu (Sol Alt Köşede) -->
         <a href="https://wa.me/905387061315" target="_blank" class="fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
@@ -537,7 +538,6 @@
         });
 
         window.addEventListener('click', (e) => {
-            // Spawn Click Ripple Visual Shockwave
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
             ripple.style.left = e.clientX + 'px';
@@ -680,7 +680,6 @@
             const container = document.getElementById('reviewsContainer');
             let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-            // Pre-seed default reviews if empty
             if (reviews.length === 0) {
                 reviews = [
                     { name: "Ahmet Y.", comment: "Flora Kameracılık ile düğün günümüzde çalıştık. Çekim kalitesi ve güler yüzlü yaklaşımları mükemmeldi!" },
@@ -690,7 +689,7 @@
             }
 
             container.innerHTML = '';
-            reviews.forEach((rev, index) => {
+            reviews.forEach((rev) => {
                 const card = document.createElement('div');
                 card.className = "bg-glassBg p-6 rounded-2xl border-l-4 border-neonBlue shadow-lg text-left transition-all hover:translate-x-2";
                 card.innerHTML = `
