@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="X5sARxfSA_PlyA-frDZ0hF7uPAgdVcn4ws58mROli8U" />
+    <title>Flora Kameracılık - Elazığ Profesyonel Çekim & Prodüksiyon</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neonBlue: '#00f0ff',
+                        deepBlue: '#0080ff',
+                        darkNavy: '#020916',
+                        glassBg: 'rgba(5, 18, 38, 0.75)',
+                    },
+                    fontFamily: {
+                        montserrat: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --neon-blue: #00f0ff;
+            --neon-glow: rgba(0, 240, 255, 0.6);
+            --dark-bg: #020916;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Custom Dynamic Cursor Glow */
+        #cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        /* Exaggerated Glow Animations */
+        .neon-text-glow {
+            text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #0080ff, 0 0 80px #0080ff;
+            animation: pulseGlow 2s infinite alternate ease-in-out;
+        }
+
+        .neon-border-glow {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(0, 240, 255, 0.2);
+            border: 2px solid #00f0ff;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #0080ff;
+                filter: brightness(1);
+            }
+            100% {
+                text-shadow: 0 0 20px #00f0ff, 0 0 35px #00f0ff, 0 0 60px #0080ff, 0 0 100px #0080ff;
+                filter: brightness(1.3);
+            }
+        }
+
+        /* Dynamic Background Particle Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Click Ripple / Wave Effect */
+        .click-ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 3px solid #00f0ff;
+            box-shadow: 0 0 20px #00f0ff, inset 0 0 15px #00f0ff;
+            pointer-events: none;
+            animation: rippleExpand 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            z-index: 9999;
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                width: 350px;
+                height: 350px;
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+
+        /* 3D Tilt Cards */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
+        }
+
+        .tilt-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3), 0 0 30px rgba(0, 128, 255, 0.4);
+        }
+
+        /* Typewriter Caret */
+        .typewriter-caret {
+            border-right: 4px solid #00f0ff;
+            animation: blinkCaret 0.7s step-end infinite;
+        }
+
+        @keyframes blinkCaret {
+            from, to { border-color: transparent }
+            50% { border-color: #00f0ff; }
+        }
+
+        /* Float Animation */
+        @keyframes floatingObj {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .animate-float {
+            animation: floatingObj 4s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020916;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0080ff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #00f0ff;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen bg-darkNavy text-white selection:bg-neonBlue selection:text-black">
+
+    <!-- Background Particles & Dynamic Canvas -->
+    <canvas id="particleCanvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <div class="relative z-10 border-4 border-neonBlue border-opacity-40 min-h-screen">
+
+        <!-- Header / Navigation Bar -->
+        <header class="sticky top-0 z-50 backdrop-blur-md bg-darkNavy/80 border-b border-neonBlue/30 px-6 py-4 transition-all duration-300">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-3 group cursor-pointer">
+                    <div class="w-10 h-10 rounded-full bg-neonBlue/20 border border-neonBlue flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-[0_0_15px_#00f0ff]">
+                        <i class="fa-solid fa-camera-retro text-neonBlue text-xl group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-widest text-white block leading-none">FLORA</span>
+                        <span class="text-xs font-bold tracking-widest text-neonBlue block">KAMERACILIK</span>
+                    </div>
+                </div>
+
+                <nav class="hidden md:flex space-x-8 text-sm font-bold tracking-wider">
+                    <a href="#about" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">HAKKIMIZDA</a>
+                    <a href="#gallery" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">GALERİ & VİTRİN</a>
+                    <a href="#services" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">HİZMETLERİMİZ</a>
+                    <a href="#reviews" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">YORUMLAR</a>
+                </nav>
+
+                <a href="https://wa.me/905387061315" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-neonBlue to-deepBlue text-black font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_#00f0ff] hover:shadow-[0_0_35px_#00f0ff]">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>İLETİŞİME GEÇ</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="relative min-h-[85vh] flex items-center justify-center px-4 py-20 overflow-hidden bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(2, 9, 22, 0.75), rgba(2, 9, 22, 0.95)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1920&auto=format&fit=crop');">
+            <div class="text-center max-w-5xl mx-auto z-10">
+                <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-neonBlue/50 bg-neonBlue/10 text-neonBlue text-xs font-black tracking-widest uppercase shadow-[0_0_15px_rgba(0,240,255,0.3)] animate-bounce">
+                    <i class="fa-solid fa-sparkles mr-2"></i>Elazığ'ın En Prestijli Fotoğraf & Video Prodüksiyonu
+                </div>
+
+                <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-widest text-white uppercase mb-2 neon-text-glow">
+                    FLORA
+                </h1>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-neonBlue uppercase tracking-[0.3em] mb-6 drop-shadow-[0_0_15px_#00f0ff]">
+                    Kameracılık
+                </h2>
+
+                <div class="w-32 h-1.5 bg-gradient-to-r from-transparent via-neonBlue to-transparent mx-auto mb-8 shadow-[0_0_20px_#00f0ff]"></div>
+
+                <!-- Typewriter Container -->
+                <div class="h-12 flex items-center justify-center">
+                    <span id="typewriter" class="text-lg sm:text-2xl font-bold text-sky-200 tracking-wider typewriter-caret pr-2"></span>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="mt-12 flex flex-wrap justify-center gap-6">
+                    <a href="#services" class="px-8 py-4 rounded-xl bg-neonBlue text-darkNavy font-black text-lg tracking-wider hover:bg-white hover:shadow-[0_0_40px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>PAKETLERİ İNCELE</span>
+                    </a>
+                    <a href="https://wa.me/905387061315?text=Merhaba,%20çekim%20randevusu%20ve%20fiyatlar%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="px-8 py-4 rounded-xl border-2 border-neonBlue bg-darkNavy/80 text-neonBlue font-black text-lg tracking-wider hover:bg-neonBlue/20 hover:shadow-[0_0_30px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 backdrop-blur-md">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        <span>WHATSAPP RANDEVU</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Cinematic Photo Banner -->
+        <section class="py-12 bg-darkNavy/90 border-y border-neonBlue/30 relative">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
+                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=800&auto=format&fit=crop" alt="Düğün Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-heart text-xs"></i> DÜĞÜN HİKAYESİ
+                        </span>
+                    </div>
+
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="Dış Çekim" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-mountain-sun text-xs"></i> DIŞ ÇEKİM
+                        </span>
+                    </div>
+
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
+                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800&auto=format&fit=crop" alt="Drone Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-drone text-xs"></i> 4K DRONE ÇEKİMİ
+                        </span>
+                    </div>
+
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Klip & Prodüksiyon" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-film text-xs"></i> KLİP & PRODÜKSİYON
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hakkımızda / Kurumsal Bölüm -->
+        <section id="about" class="py-20 px-4 relative">
+            <div class="max-w-5xl mx-auto backdrop-blur-xl bg-glassBg rounded-3xl p-8 sm:p-12 border-l-8 border-neonBlue shadow-[0_10px_40px_rgba(0,0,0,0.8)] neon-border-glow tilt-card">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="w-full md:w-1/3 flex justify-center">
+                        <div class="relative w-48 h-48 rounded-full border-4 border-neonBlue p-2 shadow-[0_0_30px_#00f0ff] animate-float">
+                            <img src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?q=80&w=600&auto=format&fit=crop" alt="Flora Profil" class="w-full h-full object-cover rounded-full">
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3 text-left">
+                        <h3 class="text-3xl font-black text-neonBlue mb-4 tracking-wider uppercase flex items-center gap-3">
+                            <i class="fa-solid fa-award"></i>
+                            <span>KURUMSAL PROFİLİMİZ</span>
+                        </h3>
+                        <p class="text-gray-200 text-lg leading-relaxed mb-6 font-medium">
+                            Flora Kameracılık, Elazığ merkezli faaliyet gösteren, yenilikçi ve yüksek teknolojili çekim ajansıdır. Son teknoloji 4K ve Sinematik ekipman parkurumuz, alanında uzman kamera ekibimiz ve özel kurgu tekniklerimiz ile en mutlu anlarınızı sanata dönüştürüyoruz.
+                        </p>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-neonBlue/30 pt-6">
+                            <div>
+                                <span class="block text-2xl font-black text-neonBlue">10+</span>
+                                <span class="text-xs text-gray-400 font-bold uppercase">Yıllık Tecrübe</span>
+                            </div>
+                            <div>
+                                <span class="block text-2xl font-black text-neonBlue">1000+</span>
+                                <span class="text-xs text-gray-400 font-bold uppercase">Mutlu Çift</span>
+                            </div>
+                            <div>
+                                <span class="block text-2xl font-black text-neonBlue">%100</span>
+                                <span class="text-xs text-gray-400 font-bold uppercase">Memnuniyet</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vitrin / Video Galeri -->
+        <section id="gallery" class="py-20 px-4 bg-black/40">
+            <div class="max-w-6xl mx-auto text-center">
+                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+                    VİTRİNİMİZ
+                </h3>
+                <p class="text-gray-400 mb-12 font-bold tracking-wider">Öne Çıkan Çekim & Prodüksiyon Çalışmalarımız</p>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Video Card 1 -->
+                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all">
+                        <a href="https://cinema8.com/video/mJdbvZkD" target="_blank" class="block relative group">
+                            <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1518135718473-112113390ee8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 opacity-60 transition-transform duration-700" alt="Flora Tanıtım">
+                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform">
+                                    <i class="fa-solid fa-play ml-1"></i>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-glassBg border-t border-neonBlue/20 text-left">
+                                <h4 class="text-xl font-black text-white group-hover:text-neonBlue transition-colors">FLORA AÇILIŞ VE TANITIM VİDEOSU</h4>
+                                <p class="text-xs text-gray-400 mt-2 font-bold">Sinematik Tanıtım • 4K Kalite</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all">
+                        <a href="https://cinema8.com/video/PO8P1KyO" target="_blank" class="block relative group">
+                            <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 opacity-60 transition-transform duration-700" alt="Taşra Düğün Salonu">
+                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform">
+                                    <i class="fa-solid fa-play ml-1"></i>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-glassBg border-t border-neonBlue/20 text-left">
+                                <h4 class="text-xl font-black text-white group-hover:text-neonBlue transition-colors">TAŞRA DÜĞÜN SALONU TANITIMI</h4>
+                                <p class="text-xs text-gray-400 mt-2 font-bold">Mekan Çekimi • Havadan Drone Görüntüleri</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hizmetlerimiz Bölümü (Eksiksiz) -->
+        <section id="services" class="py-20 px-4 relative bg-darkNavy/80">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+                    HİZMETLERİMİZ
+                </h3>
+                <p class="text-gray-400 mb-16 font-bold tracking-wider">İhtiyacınıza Özel Profesyonel Çekim Çözümleri</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    
+                    <!-- Service 1 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">DÜĞÜN ÇEKİMİ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Tüm gün sinematik video çekimi, hikaye kurgusu ve 4K çözünürlükte kayıt.</p>
+                        <a href="https://wa.me/905387061315?text=Düğün%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">KINA ÇEKİMİ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Kına gecenizin coşkusunu ve duygusal anlarını unutulmaz kılan çekimler.</p>
+                        <a href="https://wa.me/905387061315?text=Kına%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-ring"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">NİŞAN ÇEKİMİ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Evliliğe ilk adımınızda salonda veya açık alanda estetik klip çekimleri.</p>
+                        <a href="https://wa.me/905387061315?text=Nişan%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 4 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-film"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">KLİP ÇEKİMİ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Müzik klipleri, kurumsal tanıtım filmleri ve özel sosyal medya videoları.</p>
+                        <a href="https://wa.me/905387061315?text=Klip%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 5 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-camera-retro"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">DIŞ ÇEKİM</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Doğa, konsept mekanlar ve özel manzara lokasyonlarında sanatsal dış çekimler.</p>
+                        <a href="https://wa.me/905387061315?text=Dış%20çekim%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 6 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">FOTOĞRAF ALBÜMÜ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Panoramik, kristal kapak lüks fotoğraf albümleri ve cep albümü hediyeleri.</p>
+                        <a href="https://wa.me/905387061315?text=Fotoğraf%20albümü%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                    <!-- Service 7 -->
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg col-span-1 sm:col-span-2 lg:col-span-1">
+                        <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </div>
+                        <h4 class="text-xl font-black text-white mb-2">DRONE ÇEKİMİ</h4>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Lisanslı drone pilotlarımızla 4K çözünürlükte etkileyici hava çekimleri.</p>
+                        <a href="https://wa.me/905387061315?text=Drone%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
+                            TEKLİF AL
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Müşteri Görüşleri ve Yorum Forumu (Kalıcı LocalStorage) -->
+        <section id="reviews" class="py-20 px-4 bg-cover bg-center relative" style="background-image: linear-gradient(to bottom, rgba(2, 9, 22, 0.9), rgba(2, 9, 22, 0.95)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920&auto=format&fit=crop');">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+                        MÜŞTERİ YORUMLARI
+                    </h3>
+                    <p class="text-gray-300 font-bold tracking-wider">Sizden Gelen Değerli Görüşler ve Deneyimler</p>
+                </div>
+
+                <!-- Form Container -->
+                <div class="bg-glassBg backdrop-blur-2xl p-8 rounded-3xl border-2 border-neonBlue/40 shadow-[0_0_40px_rgba(0,240,255,0.2)] mb-12">
+                    <form id="reviewForm" onsubmit="handleReviewSubmit(event)" class="space-y-6">
+                        <div>
+                            <label class="block text-neonBlue font-bold text-sm uppercase mb-2 tracking-wider">
+                                <i class="fa-solid fa-user mr-2"></i>Adınız Soyadınız
+                            </label>
+                            <input type="text" id="reviewerName" required placeholder="Örn: Mehmet Yılmaz" class="w-full px-5 py-3.5 rounded-xl bg-darkNavy/90 border border-neonBlue/30 text-white placeholder-gray-500 focus:outline-none focus:border-neonBlue focus:ring-2 focus:ring-neonBlue/50 transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-neonBlue font-bold text-sm uppercase mb-2 tracking-wider">
+                                <i class="fa-solid fa-comment-dots mr-2"></i>Yorumunuz ve Değerlendirmeniz
+                            </label>
+                            <textarea id="reviewerComment" rows="4" required placeholder="Çekim deneyiminizi bizimle paylaşın..." class="w-full px-5 py-3.5 rounded-xl bg-darkNavy/90 border border-neonBlue/30 text-white placeholder-gray-500 focus:outline-none focus:border-neonBlue focus:ring-2 focus:ring-neonBlue/50 transition-all"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-neonBlue to-deepBlue text-black font-black text-lg tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_25px_#00f0ff]">
+                            YORUMU GÖNDER & KAYDET
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Rendered Reviews List -->
+                <div id="reviewsContainer" class="space-y-4">
+                    <!-- Dynamic LocalStorage Items Loaded Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black/90 border-t-2 border-neonBlue/30 py-12 px-4 text-center relative z-10">
+            <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-left">
+                    <span class="text-2xl font-black tracking-widest text-white block">FLORA KAMERACILIK</span>
+                    <span class="text-xs text-neonBlue font-bold tracking-widest uppercase">Elazığ Profesyonel Medya Hizmetleri</span>
+                </div>
+
+                <div class="flex items-center space-x-6 text-sm font-bold">
+                    <a href="https://instagram.com/florakamera23" target="_blank" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2">
+                        <i class="fa-brands fa-instagram text-xl text-neonBlue"></i>
+                        <span>@florakamera23</span>
+                    </a>
+                    <a href="tel:05387061315" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-neonBlue"></i>
+                        <span>0538 706 13 15</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-800 text-xs text-gray-500 font-medium">
+                © 2026 Flora Kameracılık - Tüm Hakları Saklıdır. Elazığ Fotoğraf & Video Prodüksiyon.
+            </div>
+        </footer>
+
+        <!-- WhatsApp Butonu (Sol Alt Köşeye Taşındı) -->
+        <a href="https://wa.me/905387061315" target="_blank" class="fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+
+    </div>
+
+    <script>
+        /* -------------------------------------------------------------
+           1. Dynamic Cursor Glow & Click Ripple / Shockwave Handler
+        ------------------------------------------------------------- */
+        const cursorGlow = document.getElementById('cursor-glow');
+
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        window.addEventListener('click', (e) => {
+            // Spawn Click Ripple Visual Shockwave
+            const ripple = document.createElement('div');
+            ripple.className = 'click-ripple';
+            ripple.style.left = e.clientX + 'px';
+            ripple.style.top = e.clientY + 'px';
+            document.body.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        });
+
+        /* -------------------------------------------------------------
+           2. Particle Canvas Animation Engine
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 45;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.7 + 0.3;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f0ff';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        /* -------------------------------------------------------------
+           3. Typewriter Animation Script
+        ------------------------------------------------------------- */
+        const typewriterWords = [
+            "ELAZIĞ'IN 1 NUMARALI PROFESYONEL ÇEKİM MERKEZİ",
+            "4K SİNEMATİK DÜĞÜN HİKAYELERİ VE DIŞ ÇEKİM",
+            "DRONE HAVADAN ÇEKİM VE PRODÜKSİYON KALİTESİ",
+            "UNUTULMAZ ANLARINIZI BİRLİKTE ÖLÜMSÜZLEŞTİRELİM"
+        ];
+
+        let wordIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+        const typewriterEl = document.getElementById('typewriter');
+
+        function typeLoop() {
+            const currentWord = typewriterWords[wordIdx];
+
+            if (isDeleting) {
+                typewriterEl.innerText = currentWord.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typewriterEl.innerText = currentWord.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 60;
+
+            if (!isDeleting && charIdx === currentWord.length) {
+                typeSpeed = 2200;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                wordIdx = (wordIdx + 1) % typewriterWords.length;
+                typeSpeed = 400;
+            }
+
+            setTimeout(typeLoop, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', typeLoop);
+
+        /* -------------------------------------------------------------
+           4. 3D Card Interactive Tilt Effect
+        ------------------------------------------------------------- */
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 12;
+                const rotateY = (centerX - x) / 12;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            });
+        });
+
+        /* -------------------------------------------------------------
+           5. Persistent Forum LocalStorage Engine
+        ------------------------------------------------------------- */
+        const STORAGE_KEY = 'flora_reviews_v2';
+
+        function loadReviews() {
+            const container = document.getElementById('reviewsContainer');
+            let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+            // Pre-seed default reviews if empty
+            if (reviews.length === 0) {
+                reviews = [
+                    { name: "Ahmet Y.", comment: "Flora Kameracılık ile düğün günümüzde çalıştık. Çekim kalitesi ve güler yüzlü yaklaşımları mükemmeldi!" },
+                    { name: "Zeynep K.", comment: "Dış çekim albümümüz tam istediğimiz gibi oldu. Drone çekimleri özellikle harikaydı, elinize sağlık." }
+                ];
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+            }
+
+            container.innerHTML = '';
+            reviews.forEach((rev, index) => {
+                const card = document.createElement('div');
+                card.className = "bg-glassBg p-6 rounded-2xl border-l-4 border-neonBlue shadow-lg text-left transition-all hover:translate-x-2";
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-extrabold text-neonBlue text-base flex items-center gap-2">
+                            <i class="fa-solid fa-circle-user text-lg"></i> ${escapeHTML(rev.name)}
+                        </span>
+                        <span class="text-xs text-amber-400 font-bold">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </span>
+                    </div>
+                    <p class="text-gray-200 text-sm leading-relaxed">${escapeHTML(rev.comment)}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function handleReviewSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('reviewerName');
+            const commentInput = document.getElementById('reviewerComment');
+
+            const newReview = {
+                name: nameInput.value.trim(),
+                comment: commentInput.value.trim()
+            };
+
+            let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+            reviews.unshift(newReview);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
+
+            nameInput.value = '';
+            commentInput.value = '';
+
+            loadReviews();
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        }
+
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+
+    <!-- Tawk.to Live Chat Component -->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/69cd65807f699e1c36f3acc4/1jl55909d';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+</body>
+</html>
