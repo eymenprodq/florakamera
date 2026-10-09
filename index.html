@@ -43,6 +43,7 @@
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             cursor: default;
+            padding-bottom: 70px; /* Mobil alt menü için boşluk */
         }
 
         /* Custom Dynamic Cursor Glow */
@@ -447,7 +448,7 @@
                         </a>
                     </div>
 
-                    <!-- Service 8: YENİ EKLENEN ÖZEL KONSEPT ÇEKİMİ -->
+                    <!-- Service 8: ÖZEL KONSEPT ÇEKİMİ -->
                     <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
@@ -531,8 +532,28 @@
             </div>
         </footer>
 
-        <!-- WhatsApp Butonu (Sol Alt Köşede) -->
-        <a href="https://wa.me/905387061315" target="_blank" class="fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce">
+        <!-- Mobil Özel Alt Navigasyon Barı (Sadece Mobilde Görünür) -->
+        <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-darkNavy/95 backdrop-blur-lg border-t border-neonBlue/40 px-4 py-2 flex justify-around items-center shadow-[0_-5px_20px_rgba(0,240,255,0.2)]">
+            <a href="#" class="flex flex-col items-center text-neonBlue text-xs font-bold py-1">
+                <i class="fa-solid fa-house text-lg mb-0.5"></i>
+                <span>Ana Sayfa</span>
+            </a>
+            <a href="#services" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors">
+                <i class="fa-solid fa-camera text-lg mb-0.5"></i>
+                <span>Hizmetler</span>
+            </a>
+            <a href="#reviews" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors">
+                <i class="fa-solid fa-comments text-lg mb-0.5"></i>
+                <span>Yorumlar</span>
+            </a>
+            <a href="https://wa.me/905387061315?text=Merhaba,%20randevu%20almak%20istiyorum." target="_blank" class="flex flex-col items-center text-emerald-400 text-xs font-bold py-1">
+                <i class="fa-brands fa-whatsapp text-xl mb-0.5 animate-pulse"></i>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+
+        <!-- WhatsApp Sabit Buton (Sol Alt Köşede - Tawk.to Çakışmasını Engeller) -->
+        <a href="https://wa.me/905387061315" target="_blank" class="hidden md:flex fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
 
