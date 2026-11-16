@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="X5sARxfSA_PlyA-frDZ0hF7uPAgdVcn4ws58mROli8U" />
+    <meta name="google-site-verification" content="7HO7fMJQkkZRbFemkvJ7JASrZmYOfqoAglMJqsvDW9o" />
     <title>Flora Kameracılık - Elazığ Profesyonel Çekim & Prodüksiyon</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="Elazığ'ın en prestijli fotoğraf & video prodüksiyon ajansı. Düğün, nişan, kına, dış çekim, drone ve klip çekimi hizmetleri.">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800&display=swap" rel="stylesheet">
-    <script id="chatway" async="true" src="https://cdn.chatway.app/widget.js?id=v4jqFSXsiTKC"></script>
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -23,9 +22,7 @@
                         darkNavy: '#020916',
                         glassBg: 'rgba(5, 18, 38, 0.75)',
                     },
-                    fontFamily: {
-                        montserrat: ['Montserrat', 'sans-serif'],
-                    }
+                    fontFamily: { montserrat: ['Montserrat', 'sans-serif'] }
                 }
             }
         }
@@ -38,236 +35,446 @@
             --dark-bg: #020916;
         }
 
+        * { -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+
         body {
             background-color: var(--dark-bg);
-            color: #ffffff;
+            color: #fff;
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
-            cursor: default;
-            padding-bottom: 70px; /* Mobil alt menü için boşluk */
+            padding-bottom: 70px;
         }
 
-        /* Custom Dynamic Cursor Glow */
-        #cursor-glow {
+        /* === INTRO CINEMA8 === */
+        #introScreen {
             position: fixed;
-            width: 300px;
-            height: 300px;
+            inset: 0;
+            z-index: 100000;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s ease;
+            overflow: hidden;
+        }
+        #introScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        #introScreen > div {
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            padding-top: 0 !important;
+        }
+        #introScreen cinema8-player {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            display: block !important;
+        }
+
+        /* === SCROLL PROGRESS === */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px;
+            background: linear-gradient(90deg, #00f0ff, #0080ff, #00f0ff);
+            background-size: 200% 100%;
+            width: 0%; z-index: 9999;
+            box-shadow: 0 0 15px #00f0ff;
+            animation: progressShimmer 2s linear infinite;
+        }
+        @keyframes progressShimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* === CURSOR === */
+        #cursor-glow {
+            position: fixed; width: 300px; height: 300px;
             background: radial-gradient(circle, rgba(0, 240, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            border-radius: 50%; pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 9998;
             transition: width 0.3s, height 0.3s;
         }
+        @media (max-width: 768px) { #cursor-glow { display: none; } }
 
-        /* Exaggerated Glow Animations */
+        /* === NEON === */
         .neon-text-glow {
             text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 40px #0080ff, 0 0 80px #0080ff;
             animation: pulseGlow 2s infinite alternate ease-in-out;
         }
-
         .neon-border-glow {
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 15px rgba(0, 240, 255, 0.2);
             border: 2px solid #00f0ff;
         }
-
         @keyframes pulseGlow {
-            0% {
-                text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #0080ff;
-                filter: brightness(1);
-            }
-            100% {
-                text-shadow: 0 0 20px #00f0ff, 0 0 35px #00f0ff, 0 0 60px #0080ff, 0 0 100px #0080ff;
-                filter: brightness(1.3);
-            }
+            0% { text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #0080ff; filter: brightness(1); }
+            100% { text-shadow: 0 0 20px #00f0ff, 0 0 35px #00f0ff, 0 0 60px #0080ff, 0 0 100px #0080ff; filter: brightness(1.3); }
         }
 
-        /* Dynamic Background Particle Canvas */
         #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
         }
 
-        /* Click Ripple / Wave Effect */
         .click-ripple {
-            position: fixed;
-            border-radius: 50%;
+            position: fixed; border-radius: 50%;
             border: 3px solid #00f0ff;
             box-shadow: 0 0 20px #00f0ff, inset 0 0 15px #00f0ff;
             pointer-events: none;
             animation: rippleExpand 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
             z-index: 9999;
         }
-
         @keyframes rippleExpand {
-            0% {
-                width: 0px;
-                height: 0px;
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                width: 350px;
-                height: 350px;
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1.5);
-            }
+            0% { width: 0; height: 0; opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { width: 350px; height: 350px; opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
         }
 
-        /* 3D Tilt Cards */
         .tilt-card {
             transform-style: preserve-3d;
             transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s;
         }
-
         .tilt-card:hover {
             box-shadow: 0 20px 40px rgba(0, 240, 255, 0.3), 0 0 30px rgba(0, 128, 255, 0.4);
         }
 
-        /* Typewriter Caret */
+        .card-shine { position: relative; overflow: hidden; }
+        .card-shine::before {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.15), transparent);
+            transition: left 0.7s ease;
+            pointer-events: none; z-index: 1;
+        }
+        .card-shine:hover::before { left: 100%; }
+
         .typewriter-caret {
             border-right: 4px solid #00f0ff;
             animation: blinkCaret 0.7s step-end infinite;
         }
+        @keyframes blinkCaret { from, to { border-color: transparent } 50% { border-color: #00f0ff; } }
 
-        @keyframes blinkCaret {
-            from, to { border-color: transparent }
-            50% { border-color: #00f0ff; }
-        }
-
-        /* Float Animation */
         @keyframes floatingObj {
             0% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-15px) rotate(2deg); }
             100% { transform: translateY(0px) rotate(0deg); }
         }
+        .animate-float { animation: floatingObj 4s ease-in-out infinite; }
 
-        .animate-float {
-            animation: floatingObj 4s ease-in-out infinite;
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .btn-shimmer { position: relative; overflow: hidden; }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.6s ease;
+        }
+        .btn-shimmer:hover::after { left: 100%; }
+
+        .pulse-rings::before, .pulse-rings::after {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: pulseRing 2s ease-out infinite;
+        }
+        .pulse-rings::after { animation-delay: 1s; }
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.8); opacity: 0; }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        #backToTop {
+            position: fixed;
+            bottom: 90px; right: 24px;
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f0ff, #0080ff);
+            color: #020916;
+            font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px #00f0ff;
+            cursor: pointer;
+            opacity: 0; visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 40;
+            border: 2px solid #fff;
         }
-        ::-webkit-scrollbar-track {
-            background: #020916;
+        #backToTop.show { opacity: 1; visibility: visible; }
+        #backToTop:hover { transform: translateY(-5px) scale(1.1); box-shadow: 0 0 35px #00f0ff; }
+        @media (min-width: 768px) { #backToTop { bottom: 32px; right: 100px; } }
+
+        .marquee-container {
+            overflow: hidden;
+            background: linear-gradient(90deg, rgba(0,240,255,0.1), rgba(0,128,255,0.1));
+            border-top: 1px solid rgba(0,240,255,0.3);
+            border-bottom: 1px solid rgba(0,240,255,0.3);
         }
+        .marquee-track {
+            display: flex;
+            animation: marquee 30s linear infinite;
+            white-space: nowrap;
+        }
+        .marquee-track span {
+            padding: 0 2rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: #00f0ff;
+            display: inline-flex; align-items: center; gap: 1rem;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00f0ff, #0080ff, #00f0ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #020916; }
         ::-webkit-scrollbar-thumb {
             background: #0080ff;
             border-radius: 5px;
             box-shadow: 0 0 10px #00f0ff;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00f0ff;
+        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+
+        /* === CHAT WIDGET === */
+        #chatWidget {
+            position: fixed;
+            z-index: 60;
+            bottom: 90px;
+            left: 8px;
+            right: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+            background: #0a1420;
+            border: 2px solid #25D366;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(37, 211, 102, 0.5), 0 15px 40px rgba(0,0,0,0.7);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            animation: chatOpen 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        }
+        @media (min-width: 768px) {
+            #chatWidget {
+                bottom: 120px;
+                left: 32px;
+                right: auto;
+                margin: 0;
+                width: 380px;
+            }
+        }
+        #chatWidget.open { display: flex; }
+        @keyframes chatOpen {
+            0% { opacity: 0; transform: translateY(30px) scale(0.85); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .chat-bubble-in {
+            animation: bubbleIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+            opacity: 0;
+        }
+        @keyframes bubbleIn {
+            0% { opacity: 0; transform: translateY(10px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        #chatMessages::-webkit-scrollbar { width: 6px; }
+        #chatMessages::-webkit-scrollbar-thumb { background: #25D366; border-radius: 3px; }
+
+        .typing-dots {
+            display: inline-flex; gap: 4px; align-items: center;
+        }
+        .typing-dots span {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #25D366;
+            animation: typingBounce 1.4s ease-in-out infinite;
+        }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .tilt-card:hover { transform: none !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
 <body class="relative min-h-screen bg-darkNavy text-white selection:bg-neonBlue selection:text-black">
 
-    <!-- Background Particles & Dynamic Canvas -->
+    <!-- ================= INTRO CINEMA8 ================= -->
+    <div id="introScreen">
+        <div style="position: relative; width: 100%; padding-top: 56.25%;">
+            <cinema8-player media-id="PO8PAQoO" autoplay playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></cinema8-player>
+        </div>
+    </div>
+    <script src="https://static-01.cinema8.com/embed/player.js" async></script>
+
+    <div id="scroll-progress"></div>
     <canvas id="particleCanvas"></canvas>
     <div id="cursor-glow"></div>
 
     <div class="relative z-10 border-4 border-neonBlue border-opacity-40 min-h-screen">
 
-        <!-- Header / Navigation Bar -->
+        <!-- HEADER -->
         <header class="sticky top-0 z-50 backdrop-blur-md bg-darkNavy/80 border-b border-neonBlue/30 px-6 py-4 transition-all duration-300">
             <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <div class="flex items-center space-x-3 group cursor-pointer">
-                    <img src="https://florakameracilik.vercel.app/florakamera.png" alt="Flora Kameracılık Logo" class="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-[0_0_10px_#00f0ff]">
+                <a href="#" class="flex items-center space-x-3 group cursor-pointer">
+                    <img src="https://florakameracilik.vercel.app/florakamera.png" alt="Flora Kameracılık Logo" class="w-12 h-12 object-contain group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 drop-shadow-[0_0_10px_#00f0ff]">
                     <div>
                         <span class="text-2xl font-black tracking-widest text-white block leading-none">FLORA</span>
                         <span class="text-xs font-bold tracking-widest text-neonBlue block">KAMERACILIK</span>
                     </div>
-                </div>
+                </a>
 
                 <nav class="hidden md:flex space-x-8 text-sm font-bold tracking-wider">
-                    <a href="#about" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">HAKKIMIZDA</a>
-                    <a href="#gallery" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">GALERİ & VİTRİN</a>
-                    <a href="#services" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">HİZMETLERİMİZ</a>
-                    <a href="#reviews" class="hover:text-neonBlue transition-colors hover:shadow-[0_4px_10px_#00f0ff] py-1">YORUMLAR</a>
+                    <a href="#about" class="relative hover:text-neonBlue transition-colors py-1 group">
+                        HAKKIMIZDA
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#00f0ff]"></span>
+                    </a>
+                    <a href="#gallery" class="relative hover:text-neonBlue transition-colors py-1 group">
+                        GALERİ & VİTRİN
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#00f0ff]"></span>
+                    </a>
+                    <a href="#services" class="relative hover:text-neonBlue transition-colors py-1 group">
+                        HİZMETLERİMİZ
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#00f0ff]"></span>
+                    </a>
+                    <a href="#reviews" class="relative hover:text-neonBlue transition-colors py-1 group">
+                        YORUMLAR
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-neonBlue group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#00f0ff]"></span>
+                    </a>
                 </nav>
 
-                <a href="https://wa.me/905387061315" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-neonBlue to-deepBlue text-black font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_#00f0ff] hover:shadow-[0_0_35px_#00f0ff]">
+                <button onclick="openChat()" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-neonBlue to-deepBlue text-black font-extrabold hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_#00f0ff] hover:shadow-[0_0_35px_#00f0ff] btn-shimmer">
                     <i class="fa-brands fa-whatsapp text-lg"></i>
                     <span>İLETİŞİME GEÇ</span>
-                </a>
+                </button>
             </div>
         </header>
 
-        <!-- Hero Section -->
+        <!-- HERO -->
         <section class="relative min-h-[85vh] flex items-center justify-center px-4 py-20 overflow-hidden bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(2, 9, 22, 0.75), rgba(2, 9, 22, 0.95)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1920&auto=format&fit=crop');">
             <div class="text-center max-w-5xl mx-auto z-10">
                 <div class="inline-block mb-4 px-4 py-1.5 rounded-full border border-neonBlue/50 bg-neonBlue/10 text-neonBlue text-xs font-black tracking-widest uppercase shadow-[0_0_15px_rgba(0,240,255,0.3)] animate-bounce">
-                    <i class="fa-solid fa-sparkles mr-2"></i>Elazığ'ın En Prestijli Fotoğraf & Video Prodüksiyonu
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Elazığ'ın En Prestijli Fotoğraf & Video Prodüksiyonu
                 </div>
 
                 <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-widest text-white uppercase mb-2 neon-text-glow">
                     FLORA
                 </h1>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-neonBlue uppercase tracking-[0.3em] mb-6 drop-shadow-[0_0_15px_#00f0ff]">
+                <h2 class="text-2xl sm:text-4xl font-extrabold gradient-text uppercase tracking-[0.3em] mb-6">
                     Kameracılık
                 </h2>
 
                 <div class="w-32 h-1.5 bg-gradient-to-r from-transparent via-neonBlue to-transparent mx-auto mb-8 shadow-[0_0_20px_#00f0ff]"></div>
 
-                <!-- Typewriter Container -->
                 <div class="h-12 flex items-center justify-center">
                     <span id="typewriter" class="text-lg sm:text-2xl font-bold text-sky-200 tracking-wider typewriter-caret pr-2"></span>
                 </div>
 
-                <!-- CTA Buttons -->
                 <div class="mt-12 flex flex-wrap justify-center gap-6">
-                    <a href="#services" class="px-8 py-4 rounded-xl bg-neonBlue text-darkNavy font-black text-lg tracking-wider hover:bg-white hover:shadow-[0_0_40px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3">
+                    <a href="#services" class="px-8 py-4 rounded-xl bg-neonBlue text-darkNavy font-black text-lg tracking-wider hover:bg-white hover:shadow-[0_0_40px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 btn-shimmer">
                         <i class="fa-solid fa-camera"></i>
                         <span>PAKETLERİ İNCELE</span>
                     </a>
-                    <a href="https://wa.me/905387061315?text=Merhaba,%20çekim%20randevusu%20ve%20fiyatlar%20hakkında%20bilgi%20almak%20istiyorum." target="_blank" class="px-8 py-4 rounded-xl border-2 border-neonBlue bg-darkNavy/80 text-neonBlue font-black text-lg tracking-wider hover:bg-neonBlue/20 hover:shadow-[0_0_30px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 backdrop-blur-md">
+                    <button onclick="openChat()" class="px-8 py-4 rounded-xl border-2 border-neonBlue bg-darkNavy/80 text-neonBlue font-black text-lg tracking-wider hover:bg-neonBlue/20 hover:shadow-[0_0_30px_#00f0ff] transform hover:-translate-y-1 active:translate-y-0 transition-all duration-300 flex items-center gap-3 backdrop-blur-md btn-shimmer">
                         <i class="fa-brands fa-whatsapp text-2xl"></i>
                         <span>WHATSAPP RANDEVU</span>
-                    </a>
+                    </button>
                 </div>
+            </div>
+
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-neonBlue text-2xl"></i>
             </div>
         </section>
 
-        <!-- Dynamic Cinematic Photo Banner -->
+        <!-- MARQUEE -->
+        <div class="marquee-container py-3">
+            <div class="marquee-track">
+                <span><i class="fa-solid fa-star"></i> 4K SİNEMATİK ÇEKİM</span>
+                <span><i class="fa-solid fa-star"></i> PROFESYONEL DRONE</span>
+                <span><i class="fa-solid fa-star"></i> HIZLI TESLİMAT</span>
+                <span><i class="fa-solid fa-star"></i> %100 MEMNUNİYET</span>
+                <span><i class="fa-solid fa-star"></i> LİSANSLI EKİP</span>
+                <span><i class="fa-solid fa-star"></i> 4K SİNEMATİK ÇEKİM</span>
+                <span><i class="fa-solid fa-star"></i> PROFESYONEL DRONE</span>
+                <span><i class="fa-solid fa-star"></i> HIZLI TESLİMAT</span>
+                <span><i class="fa-solid fa-star"></i> %100 MEMNUNİYET</span>
+                <span><i class="fa-solid fa-star"></i> LİSANSLI EKİP</span>
+            </div>
+        </div>
+
+        <!-- PHOTO BANNER -->
         <section class="py-12 bg-darkNavy/90 border-y border-neonBlue/30 relative">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
-                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=800&auto=format&fit=crop" alt="Düğün Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card card-shine reveal">
+                        <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=800&auto=format&fit=crop" alt="Düğün Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2 z-10">
                             <i class="fa-solid fa-heart text-xs"></i> DÜĞÜN HİKAYESİ
                         </span>
                     </div>
 
-                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
-                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="Dış Çekim" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card card-shine reveal" style="transition-delay: 0.1s">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="Dış Çekim" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2 z-10">
                             <i class="fa-solid fa-mountain-sun text-xs"></i> DIŞ ÇEKİM
                         </span>
                     </div>
 
-                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
-                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800&auto=format&fit=crop" alt="Drone Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card card-shine reveal" style="transition-delay: 0.2s">
+                        <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800&auto=format&fit=crop" alt="Drone Çekimi" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
-                            <i class="fa-solid fa-drone text-xs"></i> 4K DRONE ÇEKİMİ
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2 z-10">
+                            <i class="fa-solid fa-helicopter text-xs"></i> 4K DRONE ÇEKİMİ
                         </span>
                     </div>
 
-                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card">
-                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Klip & Prodüksiyon" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="relative group overflow-hidden rounded-2xl border border-neonBlue/30 shadow-lg tilt-card card-shine reveal" style="transition-delay: 0.3s">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Klip & Prodüksiyon" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-darkNavy via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
-                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2">
+                        <span class="absolute bottom-4 left-4 font-extrabold text-neonBlue tracking-wider text-sm flex items-center gap-2 z-10">
                             <i class="fa-solid fa-film text-xs"></i> KLİP & PRODÜKSİYON
                         </span>
                     </div>
@@ -275,9 +482,9 @@
             </div>
         </section>
 
-        <!-- Hakkımızda / Kurumsal Bölüm -->
+        <!-- ABOUT -->
         <section id="about" class="py-20 px-4 relative">
-            <div class="max-w-5xl mx-auto backdrop-blur-xl bg-glassBg rounded-3xl p-8 sm:p-12 border-l-8 border-neonBlue shadow-[0_10px_40px_rgba(0,0,0,0.8)] neon-border-glow tilt-card">
+            <div class="max-w-5xl mx-auto backdrop-blur-xl bg-glassBg rounded-3xl p-8 sm:p-12 border-l-8 border-neonBlue shadow-[0_10px_40px_rgba(0,0,0,0.8)] neon-border-glow tilt-card reveal card-shine">
                 <div class="flex flex-col md:flex-row items-center gap-8">
                     <div class="w-full md:w-1/3 flex justify-center">
                         <div class="relative w-48 h-48 rounded-full border-4 border-neonBlue p-2 shadow-[0_0_30px_#00f0ff] animate-float">
@@ -294,15 +501,15 @@
                         </p>
                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-neonBlue/30 pt-6">
                             <div>
-                                <span class="block text-2xl font-black text-neonBlue">10+</span>
+                                <span class="counter block text-3xl font-black text-neonBlue" data-target="10" data-suffix="+">0</span>
                                 <span class="text-xs text-gray-400 font-bold uppercase">Yıllık Tecrübe</span>
                             </div>
                             <div>
-                                <span class="block text-2xl font-black text-neonBlue">1000+</span>
+                                <span class="counter block text-3xl font-black text-neonBlue" data-target="1000" data-suffix="+">0</span>
                                 <span class="text-xs text-gray-400 font-bold uppercase">Mutlu Çift</span>
                             </div>
                             <div>
-                                <span class="block text-2xl font-black text-neonBlue">%100</span>
+                                <span class="counter block text-3xl font-black text-neonBlue" data-target="100" data-prefix="%">0</span>
                                 <span class="text-xs text-gray-400 font-bold uppercase">Memnuniyet</span>
                             </div>
                         </div>
@@ -311,21 +518,20 @@
             </div>
         </section>
 
-        <!-- Vitrin / Video Galeri -->
+        <!-- GALLERY -->
         <section id="gallery" class="py-20 px-4 bg-black/40">
-            <div class="max-w-6xl mx-auto text-center">
-                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+            <div class="max-w-7xl mx-auto text-center">
+                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow reveal">
                     VİTRİNİMİZ
                 </h3>
-                <p class="text-gray-400 mb-12 font-bold tracking-wider">Öne Çıkan Çekim & Prodüksiyon Çalışmalarımız</p>
+                <p class="text-gray-400 mb-12 font-bold tracking-wider reveal">Öne Çıkan Çekim & Prodüksiyon Çalışmalarımız</p>
 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Video Card 1 -->
-                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all">
+                <div class="grid md:grid-cols-2 gap-8 mb-16">
+                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all reveal card-shine">
                         <a href="https://cinema8.com/video/mJdbvZkD" target="_blank" class="block relative group">
                             <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center">
                                 <img src="https://images.unsplash.com/photo-1518135718473-112113390ee8?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 opacity-60 transition-transform duration-700" alt="Flora Tanıtım">
-                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform">
+                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform z-10">
                                     <i class="fa-solid fa-play ml-1"></i>
                                 </div>
                             </div>
@@ -336,12 +542,11 @@
                         </a>
                     </div>
 
-                    <!-- Video Card 2 -->
-                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all">
+                    <div class="group relative bg-darkNavy/90 rounded-2xl overflow-hidden border border-neonBlue/40 tilt-card shadow-xl hover:border-neonBlue transition-all reveal card-shine" style="transition-delay: 0.15s">
                         <a href="https://cinema8.com/video/PO8P1KyO" target="_blank" class="block relative group">
                             <div class="h-64 bg-slate-900 relative overflow-hidden flex items-center justify-center">
                                 <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 opacity-60 transition-transform duration-700" alt="Taşra Düğün Salonu">
-                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform">
+                                <div class="absolute w-20 h-20 rounded-full bg-neonBlue/80 text-black flex items-center justify-center text-3xl shadow-[0_0_30px_#00f0ff] group-hover:scale-125 transition-transform z-10">
                                     <i class="fa-solid fa-play ml-1"></i>
                                 </div>
                             </div>
@@ -352,131 +557,117 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- 50 SABİT FOTOĞRAF GALERİSİ -->
+                <div class="mt-8">
+                    <h4 class="text-2xl sm:text-3xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow reveal">
+                        ÇEKİMLERİMİZDEN KARELER
+                    </h4>
+                    <p class="text-gray-400 mb-10 font-bold tracking-wider text-sm reveal">
+                        <i class="fa-solid fa-camera text-neonBlue mr-2"></i>50 Profesyonel Çekim Karemiz
+                    </p>
+                    <div id="randomGallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+                </div>
             </div>
         </section>
 
-        <!-- Hizmetlerimiz Bölümü -->
+        <!-- SERVICES -->
         <section id="services" class="py-20 px-4 relative bg-darkNavy/80">
             <div class="max-w-7xl mx-auto text-center">
-                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+                <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow reveal">
                     HİZMETLERİMİZ
                 </h3>
-                <p class="text-gray-400 mb-16 font-bold tracking-wider">İhtiyacınıza Özel Profesyonel Çekim Çözümleri</p>
+                <p class="text-gray-400 mb-16 font-bold tracking-wider reveal">İhtiyacınıza Özel Profesyonel Çekim Çözümleri</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    
-                    <!-- Service 1 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-heart-pulse"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">DÜĞÜN ÇEKİMİ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Tüm gün sinematik video çekimi, hikaye kurgusu ve 4K çözünürlükte kayıt.</p>
-                        <a href="https://wa.me/905387061315?text=Düğün%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Düğün çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 2 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.05s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-music"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">KINA ÇEKİMİ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Kına gecenizin coşkusunu ve duygusal anlarını unutulmaz kılan çekimler.</p>
-                        <a href="https://wa.me/905387061315?text=Kına%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Kına çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 3 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.1s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-ring"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">NİŞAN ÇEKİMİ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Evliliğe ilk adımınızda salonda veya açık alanda estetik klip çekimleri.</p>
-                        <a href="https://wa.me/905387061315?text=Nişan%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Nişan çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 4 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.15s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-film"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">KLİP ÇEKİMİ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Müzik klipleri, kurumsal tanıtım filmleri ve özel sosyal medya videoları.</p>
-                        <a href="https://wa.me/905387061315?text=Klip%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Klip çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 5 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.2s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-camera-retro"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">DIŞ ÇEKİM</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Doğa, konsept mekanlar ve özel manzara lokasyonlarında sanatsal dış çekimler.</p>
-                        <a href="https://wa.me/905387061315?text=Dış%20çekim%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Dış çekim hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 6 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.25s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-book-open"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">FOTOĞRAF ALBÜMÜ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Panoramik, kristal kapak lüks fotoğraf albümleri ve cep albümü hediyeleri.</p>
-                        <a href="https://wa.me/905387061315?text=Fotoğraf%20albümü%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Fotoğraf albümü hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 7 -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.3s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                            <i class="fa-solid fa-paper-plane"></i>
+                            <i class="fa-solid fa-helicopter"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">DRONE ÇEKİMİ</h4>
                         <p class="text-sm text-gray-300 mb-6 leading-relaxed">Lisanslı drone pilotlarımızla 4K çözünürlükte etkileyici hava çekimleri.</p>
-                        <a href="https://wa.me/905387061315?text=Drone%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <button onclick="openChatWith('Drone çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
-                    <!-- Service 8: ÖZEL KONSEPT ÇEKİMİ -->
-                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg">
+                    <div class="bg-glassBg border-t-4 border-neonBlue rounded-2xl p-6 text-left hover:-translate-y-2 transition-all duration-300 tilt-card border border-neonBlue/20 shadow-lg reveal card-shine" style="transition-delay: 0.35s">
                         <div class="w-14 h-14 rounded-xl bg-neonBlue/20 flex items-center justify-center text-neonBlue text-2xl mb-4 border border-neonBlue/50 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                         </div>
                         <h4 class="text-xl font-black text-white mb-2">ÖZEL KONSEPT ÇEKİMİ</h4>
-                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Sînemotografik stüdyo ve yaratıcı temalı tasarımlarla hayalinizdeki özel konsept çekimler.</p>
-                        <a href="https://wa.me/905387061315?text=Özel%20konsept%20çekimi%20hakkında%20bilgi%20ve%20fiyat%20almak%20istiyorum." target="_blank" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">
-                            TEKLİF AL
-                        </a>
+                        <p class="text-sm text-gray-300 mb-6 leading-relaxed">Sinematografik stüdyo ve yaratıcı temalı tasarımlarla hayalinizdeki özel konsept çekimler.</p>
+                        <button onclick="openChatWith('Özel konsept çekimi hakkında bilgi ve fiyat almak istiyorum.')" class="w-full block text-center py-3 rounded-lg bg-neonBlue text-black font-extrabold text-sm hover:bg-white hover:shadow-[0_0_20px_#00f0ff] transition-all">TEKLİF AL</button>
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- Müşteri Görüşleri ve Yorum Forumu -->
+        <!-- REVIEWS -->
         <section id="reviews" class="py-20 px-4 bg-cover bg-center relative" style="background-image: linear-gradient(to bottom, rgba(2, 9, 22, 0.9), rgba(2, 9, 22, 0.95)), url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920&auto=format&fit=crop');">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
-                    <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow">
+                    <h3 class="text-4xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow reveal">
                         MÜŞTERİ YORUMLARI
                     </h3>
-                    <p class="text-gray-300 font-bold tracking-wider">Sizden Gelen Değerli Görüşler ve Deneyimler</p>
+                    <p class="text-gray-300 font-bold tracking-wider reveal">Sizden Gelen Değerli Görüşler ve Deneyimler</p>
                 </div>
 
-                <!-- Form Container -->
-                <div class="bg-glassBg backdrop-blur-2xl p-8 rounded-3xl border-2 border-neonBlue/40 shadow-[0_0_40px_rgba(0,240,255,0.2)] mb-12">
+                <div class="bg-glassBg backdrop-blur-2xl p-8 rounded-3xl border-2 border-neonBlue/40 shadow-[0_0_40px_rgba(0,240,255,0.2)] mb-12 reveal">
                     <form id="reviewForm" onsubmit="handleReviewSubmit(event)" class="space-y-6">
                         <div>
                             <label class="block text-neonBlue font-bold text-sm uppercase mb-2 tracking-wider">
@@ -492,20 +683,17 @@
                             <textarea id="reviewerComment" rows="4" required placeholder="Çekim deneyiminizi bizimle paylaşın..." class="w-full px-5 py-3.5 rounded-xl bg-darkNavy/90 border border-neonBlue/30 text-white placeholder-gray-500 focus:outline-none focus:border-neonBlue focus:ring-2 focus:ring-neonBlue/50 transition-all"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-neonBlue to-deepBlue text-black font-black text-lg tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_25px_#00f0ff]">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-neonBlue to-deepBlue text-black font-black text-lg tracking-widest hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_25px_#00f0ff] btn-shimmer">
                             YORUMU GÖNDER & KAYDET
                         </button>
                     </form>
                 </div>
 
-                <!-- Rendered Reviews List -->
-                <div id="reviewsContainer" class="space-y-4">
-                    <!-- Dynamic LocalStorage Items Loaded Here -->
-                </div>
+                <div id="reviewsContainer" class="space-y-4"></div>
             </div>
         </section>
 
-        <!-- Footer -->
+        <!-- FOOTER -->
         <footer class="bg-black/90 border-t-2 border-neonBlue/30 py-12 px-4 text-center relative z-10">
             <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center space-x-3 text-left">
@@ -517,12 +705,12 @@
                 </div>
 
                 <div class="flex items-center space-x-6 text-sm font-bold">
-                    <a href="https://instagram.com/florakamera23" target="_blank" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2">
-                        <i class="fa-brands fa-instagram text-xl text-neonBlue"></i>
+                    <a href="https://instagram.com/florakamera23" target="_blank" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2 group">
+                        <i class="fa-brands fa-instagram text-xl text-neonBlue group-hover:scale-125 transition-transform"></i>
                         <span>@florakamera23</span>
                     </a>
-                    <a href="tel:05387061315" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-phone text-neonBlue"></i>
+                    <a href="tel:05387061315" class="text-white hover:text-neonBlue transition-colors flex items-center gap-2 group">
+                        <i class="fa-solid fa-phone text-neonBlue group-hover:rotate-12 transition-transform"></i>
                         <span>0538 706 13 15</span>
                     </a>
                 </div>
@@ -533,62 +721,145 @@
             </div>
         </footer>
 
-        <!-- Mobil Özel Alt Navigasyon Barı (Sadece Mobilde Görünür) -->
+        <!-- MOBILE BOTTOM NAV -->
         <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-darkNavy/95 backdrop-blur-lg border-t border-neonBlue/40 px-4 py-2 flex justify-around items-center shadow-[0_-5px_20px_rgba(0,240,255,0.2)]">
-            <a href="#" class="flex flex-col items-center text-neonBlue text-xs font-bold py-1">
+            <a href="#" class="flex flex-col items-center text-neonBlue text-xs font-bold py-1 hover:scale-110 transition-transform">
                 <i class="fa-solid fa-house text-lg mb-0.5"></i>
                 <span>Ana Sayfa</span>
             </a>
-            <a href="#services" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors">
+            <a href="#services" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors hover:scale-110">
                 <i class="fa-solid fa-camera text-lg mb-0.5"></i>
                 <span>Hizmetler</span>
             </a>
-            <a href="#reviews" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors">
+            <a href="#reviews" class="flex flex-col items-center text-gray-300 hover:text-neonBlue text-xs font-bold py-1 transition-colors hover:scale-110">
                 <i class="fa-solid fa-comments text-lg mb-0.5"></i>
                 <span>Yorumlar</span>
             </a>
-            <a href="https://wa.me/905387061315?text=Merhaba,%20randevu%20almak%20istiyorum." target="_blank" class="flex flex-col items-center text-emerald-400 text-xs font-bold py-1">
+            <button onclick="openChat()" class="flex flex-col items-center text-emerald-400 text-xs font-bold py-1 hover:scale-110 transition-transform">
                 <i class="fa-brands fa-whatsapp text-xl mb-0.5 animate-pulse"></i>
                 <span>WhatsApp</span>
-            </a>
+            </button>
         </div>
 
-        <!-- WhatsApp Sabit Buton (Sol Alt Köşede - Tawk.to Çakışmasını Engeller) -->
-        <a href="https://wa.me/905387061315" target="_blank" class="hidden md:flex fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce">
-            <i class="fa-brands fa-whatsapp"></i>
+        <!-- FLOATING WHATSAPP -->
+        <button onclick="openChat()" aria-label="WhatsApp Sohbet" class="hidden md:flex fixed bottom-8 left-8 z-50 w-20 h-20 rounded-full bg-emerald-500 border-2 border-white items-center justify-center text-white text-4xl shadow-[0_0_35px_#25D366] hover:scale-110 active:scale-90 transition-transform duration-300 animate-bounce pulse-rings">
+            <i class="fa-brands fa-whatsapp relative z-10"></i>
+        </button>
+
+        <!-- FLOATING INSTAGRAM -->
+        <a href="https://instagram.com/florakamera23" target="_blank" aria-label="Instagram" class="fixed bottom-24 right-4 md:bottom-8 md:right-8 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 border-2 border-white flex items-center justify-center text-white text-3xl shadow-[0_0_35px_#E1306C] hover:scale-110 active:scale-90 transition-transform duration-300">
+            <i class="fa-brands fa-instagram"></i>
         </a>
+
+        <!-- BACK TO TOP -->
+        <button id="backToTop" aria-label="Yukarı çık">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
 
     </div>
 
-    <script>
-        /* -------------------------------------------------------------
-           1. Dynamic Cursor Glow & Click Ripple / Shockwave Handler
-        ------------------------------------------------------------- */
-        const cursorGlow = document.getElementById('cursor-glow');
+    <!-- CHAT WIDGET -->
+    <div id="chatWidget" role="dialog" aria-label="WhatsApp Sohbet">
+        <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 p-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center relative">
+                    <i class="fa-brands fa-whatsapp text-white text-xl"></i>
+                    <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-300 border-2 border-emerald-600 rounded-full"></span>
+                </div>
+                <div>
+                    <div class="font-black text-white text-sm tracking-wide">Flora Kameracılık</div>
+                    <div class="text-xs text-white/90 flex items-center gap-1.5 font-semibold">
+                        <span class="w-1.5 h-1.5 bg-green-200 rounded-full animate-pulse"></span>
+                        Çevrimiçi • Genelde anında yanıtlar
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeChat()" aria-label="Kapat" class="text-white hover:bg-white/20 p-2 rounded-full transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
 
+        <div id="chatMessages" class="p-4 h-72 overflow-y-auto bg-[#0a1420] space-y-3 flex flex-col"></div>
+
+        <div class="p-3 border-t border-emerald-500/30 bg-[#0a1420] flex gap-2 items-center">
+            <input type="text" id="chatInput" placeholder="Mesajınızı yazın..." autocomplete="off" class="flex-1 px-4 py-2.5 rounded-full bg-black/50 border border-emerald-500/30 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/50 transition-all">
+            <button id="chatSendBtn" onclick="sendChat()" aria-label="Gönder" class="bg-emerald-500 text-white w-11 h-11 rounded-full flex items-center justify-center hover:bg-emerald-400 active:scale-90 transition-all shadow-[0_0_15px_#25D366] shrink-0">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        /* ============ CONFIG ============ */
+        const WHATSAPP_NUMBER = '905387061315';
+
+        /* ============ INTRO (CINEMA8) ============ */
+        (function initIntro() {
+            const introScreen = document.getElementById('introScreen');
+            const player = introScreen.querySelector('cinema8-player');
+            let introEnded = false;
+            let fallbackTimer = setTimeout(endIntro, 20000); // 20 sn güvenlik
+
+            // 1) postMessage ile Cinema8 event'lerini dinle
+            window.addEventListener('message', (e) => {
+                if (!e.origin || !e.origin.includes('cinema8')) return;
+                let data;
+                try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch { return; }
+                const evt = (data && (data.event || data.type || data.name)) || '';
+                if (/end|complete|finish/i.test(evt)) {
+                    endIntro();
+                }
+            });
+
+            // 2) Element üzerinden de event dinle
+            if (player) {
+                ['ended', 'complete', 'finish', 'cinema8:ended', 'video:ended'].forEach(evt => {
+                    try { player.addEventListener(evt, endIntro); } catch {}
+                });
+            }
+
+            function endIntro() {
+                if (introEnded) return;
+                introEnded = true;
+                clearTimeout(fallbackTimer);
+                introScreen.classList.add('hidden');
+                setTimeout(() => {
+                    introScreen.style.display = 'none';
+                }, 1000);
+            }
+        })();
+
+        /* ============ SCROLL PROGRESS & BACK TO TOP ============ */
+        const progressBar = document.getElementById('scroll-progress');
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = (scrollTop / docHeight) * 100;
+            progressBar.style.width = pct + '%';
+            if (scrollTop > 400) backToTop.classList.add('show');
+            else backToTop.classList.remove('show');
+        });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        /* ============ CURSOR & RIPPLE ============ */
+        const cursorGlow = document.getElementById('cursor-glow');
         window.addEventListener('mousemove', (e) => {
             cursorGlow.style.left = e.clientX + 'px';
             cursorGlow.style.top = e.clientY + 'px';
         });
-
         window.addEventListener('click', (e) => {
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
             ripple.style.left = e.clientX + 'px';
             ripple.style.top = e.clientY + 'px';
             document.body.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 800);
+            setTimeout(() => ripple.remove(), 800);
         });
 
-        /* -------------------------------------------------------------
-           2. Particle Canvas Animation Engine
-        ------------------------------------------------------------- */
+        /* ============ PARTICLES ============ */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -597,26 +868,24 @@
         window.addEventListener('resize', resizeCanvas);
 
         const particles = [];
-        const particleCount = 45;
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 25 : 50;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                this.opacity = Math.random() * 0.7 + 0.3;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.6;
+                this.speedY = (Math.random() - 0.5) * 0.6;
+                this.opacity = Math.random() * 0.6 + 0.3;
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
             }
-
             draw() {
                 ctx.fillStyle = `rgba(0, 240, 255, ${this.opacity})`;
                 ctx.shadowBlur = 10;
@@ -626,39 +895,45 @@
                 ctx.fill();
             }
         }
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
+        function drawConnections() {
+            ctx.shadowBlur = 0;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
         }
-
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            if (!isMobile) drawConnections();
+            particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
-        /* -------------------------------------------------------------
-           3. Typewriter Animation Script
-        ------------------------------------------------------------- */
+        /* ============ TYPEWRITER ============ */
         const typewriterWords = [
             "ELAZIĞ'IN 1 NUMARALI PROFESYONEL ÇEKİM MERKEZİ",
             "4K SİNEMATİK DÜĞÜN HİKAYELERİ VE DIŞ ÇEKİM",
             "DRONE HAVADAN ÇEKİM VE PRODÜKSİYON KALİTESİ",
             "UNUTULMAZ ANLARINIZI BİRLİKTE ÖLÜMSÜZLEŞTİRELİM"
         ];
-
-        let wordIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
+        let wordIdx = 0, charIdx = 0, isDeleting = false;
         const typewriterEl = document.getElementById('typewriter');
-
         function typeLoop() {
             const currentWord = typewriterWords[wordIdx];
-
             if (isDeleting) {
                 typewriterEl.innerText = currentWord.substring(0, charIdx - 1);
                 charIdx--;
@@ -666,54 +941,82 @@
                 typewriterEl.innerText = currentWord.substring(0, charIdx + 1);
                 charIdx++;
             }
-
             let typeSpeed = isDeleting ? 30 : 60;
-
-            if (!isDeleting && charIdx === currentWord.length) {
-                typeSpeed = 2200;
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                wordIdx = (wordIdx + 1) % typewriterWords.length;
-                typeSpeed = 400;
-            }
-
+            if (!isDeleting && charIdx === currentWord.length) { typeSpeed = 2200; isDeleting = true; }
+            else if (isDeleting && charIdx === 0) { isDeleting = false; wordIdx = (wordIdx + 1) % typewriterWords.length; typeSpeed = 400; }
             setTimeout(typeLoop, typeSpeed);
         }
-
         document.addEventListener('DOMContentLoaded', typeLoop);
 
-        /* -------------------------------------------------------------
-           4. 3D Card Interactive Tilt Effect
-        ------------------------------------------------------------- */
+        /* ============ 3D TILT ============ */
         const tiltCards = document.querySelectorAll('.tilt-card');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = (y - centerY) / 12;
-                const rotateY = (centerX - x) / 12;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        if (window.matchMedia('(min-width: 769px)').matches) {
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 15;
+                    const rotateY = (centerX - x) / 15;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
             });
+        }
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        /* ============ SCROLL REVEAL ============ */
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
             });
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealEls.forEach(el => revealObserver.observe(el));
 
-        /* -------------------------------------------------------------
-           5. Persistent Forum LocalStorage Engine
-        ------------------------------------------------------------- */
-        const STORAGE_KEY = 'flora_reviews_v2';
+        /* ============ COUNTERS ============ */
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const suffix = el.dataset.suffix || '';
+                    const prefix = el.dataset.prefix || '';
+                    const duration = 2000;
+                    const start = performance.now();
+                    function updateCounter(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(eased * target);
+                        el.textContent = prefix + current + suffix;
+                        if (progress < 1) requestAnimationFrame(updateCounter);
+                        else el.textContent = prefix + target + suffix;
+                    }
+                    requestAnimationFrame(updateCounter);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => counterObserver.observe(c));
 
+        /* ============ REVIEWS ============ */
+        const STORAGE_KEY = 'flora_reviews_v3';
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+            }[tag] || tag));
+        }
         function loadReviews() {
             const container = document.getElementById('reviewsContainer');
             let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-
             if (reviews.length === 0) {
                 reviews = [
                     { name: "Ahmet Y.", comment: "Flora Kameracılık ile düğün günümüzde çalıştık. Çekim kalitesi ve güler yüzlü yaklaşımları mükemmeldi!" },
@@ -721,65 +1024,250 @@
                 ];
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
             }
-
             container.innerHTML = '';
-            reviews.forEach((rev) => {
+            reviews.forEach((rev, i) => {
                 const card = document.createElement('div');
-                card.className = "bg-glassBg p-6 rounded-2xl border-l-4 border-neonBlue shadow-lg text-left transition-all hover:translate-x-2";
+                card.className = "bg-glassBg p-6 rounded-2xl border-l-4 border-neonBlue shadow-lg text-left transition-all hover:translate-x-2 hover:shadow-[0_0_25px_rgba(0,240,255,0.3)]";
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 card.innerHTML = `
                     <div class="flex justify-between items-center mb-2">
                         <span class="font-extrabold text-neonBlue text-base flex items-center gap-2">
                             <i class="fa-solid fa-circle-user text-lg"></i> ${escapeHTML(rev.name)}
                         </span>
                         <span class="text-xs text-amber-400 font-bold">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </span>
                     </div>
                     <p class="text-gray-200 text-sm leading-relaxed">${escapeHTML(rev.comment)}</p>
                 `;
                 container.appendChild(card);
+                setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50 + i * 80);
             });
         }
-
         function handleReviewSubmit(e) {
             e.preventDefault();
             const nameInput = document.getElementById('reviewerName');
             const commentInput = document.getElementById('reviewerComment');
-
-            const newReview = {
-                name: nameInput.value.trim(),
-                comment: commentInput.value.trim()
-            };
-
+            const newReview = { name: nameInput.value.trim(), comment: commentInput.value.trim() };
             let reviews = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
             reviews.unshift(newReview);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews));
-
             nameInput.value = '';
             commentInput.value = '';
-
             loadReviews();
         }
+        document.addEventListener('DOMContentLoaded', loadReviews);
 
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                }[tag] || tag)
-            );
+        /* ============ SABİT VİTRİN FOTOĞRAFLARI (50 ADET) ============ */
+        const galleryPhotos = [
+            'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1520390138845-fd2d229dd553?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1591604466107-ec97de577aff?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1518135718473-112113390ee8?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1529634597503-139d3726fed5?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1522333323-26d44b7d1a67?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1544078751-58fee2d8a03b?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1525258946800-98cfd641d0de?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1524824267900-2fa9cbf7a506?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1525772764200-be829a350797?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1517594602951-593b903b4a1e?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1494959764136-6be9eb3c261e?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1507504031003-b417219a0fde?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1509909756405-be0199881695?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1517263904808-5dc91e3e7044?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1533228100845-08145b01de14?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1541252260730-0412e8e2108e?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519542970985-9f9c25b897b5?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519290019096-9f5e9c91dfe1?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1478146896981-b80fe463b330?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1524229648276-e6654eab5346?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1512909006721-3d6018887383?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1546198632-37f5e6b1e5c1?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1532712938310-34cb3982ef74?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1519326844852-704caea5679e?q=80&w=800&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?q=80&w=800&auto=format&fit=crop'
+        ];
+
+        function loadGallery() {
+            const container = document.getElementById('randomGallery');
+            if (!container) return;
+
+            container.innerHTML = '';
+            galleryPhotos.forEach((src, i) => {
+                const div = document.createElement('div');
+                div.className = 'relative group overflow-hidden rounded-xl border border-neonBlue/30 shadow-lg cursor-pointer reveal tilt-card card-shine';
+                div.style.transitionDelay = (Math.min(i, 20) * 0.03) + 's';
+                div.innerHTML = `
+                    <img src="${src}" alt="Flora Çekim ${i + 1}" class="w-full h-40 md:h-48 lg:h-52 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darkNavy/90 via-darkNavy/20 to-transparent opacity-70 group-hover:opacity-40 transition-opacity"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div class="w-12 h-12 rounded-full bg-neonBlue/90 flex items-center justify-center shadow-[0_0_30px_#00f0ff] scale-75 group-hover:scale-100 transition-transform">
+                            <i class="fa-solid fa-camera text-black text-lg"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-2 left-2 text-[10px] font-black text-neonBlue tracking-widest uppercase opacity-70 group-hover:opacity-100 transition-opacity">
+                        <i class="fa-solid fa-camera-retro mr-1"></i> FLORA
+                    </span>
+                `;
+                container.appendChild(div);
+                if (typeof revealObserver !== 'undefined') revealObserver.observe(div);
+            });
         }
 
-        document.addEventListener('DOMContentLoaded', loadReviews);
-                
-        })();
+        document.addEventListener('DOMContentLoaded', loadGallery);
+
+        /* =====================================================
+           CHAT WIDGET LOGIC
+        ===================================================== */
+        const chatWidget = document.getElementById('chatWidget');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        let chatInitialized = false;
+
+        function addBotMessage(text) {
+            const msg = document.createElement('div');
+            msg.className = "chat-bubble-in bg-emerald-500/20 p-3 rounded-xl rounded-bl-sm text-sm text-gray-100 self-start max-w-[85%] leading-relaxed";
+            msg.innerHTML = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addUserMessage(text) {
+            const msg = document.createElement('div');
+            msg.className = "chat-bubble-in bg-neonBlue text-black p-3 rounded-xl rounded-br-sm text-sm self-end max-w-[85%] font-semibold leading-relaxed";
+            msg.textContent = text;
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addConfirmationMessage() {
+            const msg = document.createElement('div');
+            msg.className = "chat-bubble-in bg-emerald-600/30 border border-emerald-500/50 p-3 rounded-xl text-xs text-emerald-200 self-center max-w-[90%] text-center font-semibold flex items-center justify-center gap-2";
+            msg.innerHTML = '<i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> WhatsApp\'a yönlendiriliyorsunuz...';
+            chatMessages.appendChild(msg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typing = document.createElement('div');
+            typing.id = 'typingIndicator';
+            typing.className = "bg-emerald-500/20 p-3 rounded-xl rounded-bl-sm self-start max-w-[60px]";
+            typing.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+            chatMessages.appendChild(typing);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        function initChat() {
+            if (chatInitialized) return;
+            chatInitialized = true;
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                addBotMessage('Merhaba! 👋<br><strong>Flora Kameracılık</strong>\'a hoş geldiniz.');
+                setTimeout(() => {
+                    addBotMessage('Size nasıl yardımcı olabiliriz? Çekim türü, tarih ve fiyat bilgisi için mesajınızı yazıp gönderebilirsiniz. 📸✨');
+                }, 400);
+            }, 900);
+        }
+
+        function openChat() {
+            chatWidget.classList.add('open');
+            initChat();
+            setTimeout(() => {
+                if (window.innerWidth > 768) chatInput.focus();
+            }, 400);
+        }
+
+        function openChatWith(initialMessage) {
+            openChat();
+            setTimeout(() => {
+                chatInput.value = initialMessage || '';
+                chatInput.focus();
+            }, 500);
+        }
+
+        function closeChat() {
+            chatWidget.classList.remove('open');
+        }
+
+        function sendChat() {
+            const message = chatInput.value.trim();
+            if (!message) {
+                chatInput.focus();
+                return;
+            }
+            addUserMessage(message);
+            chatInput.value = '';
+            chatInput.focus();
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                addConfirmationMessage();
+                const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+                window.open(waUrl, '_blank');
+                setTimeout(() => { closeChat(); }, 2500);
+            }, 700);
+        }
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendChat();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && chatWidget.classList.contains('open')) {
+                closeChat();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth > 768 &&
+                chatWidget.classList.contains('open') &&
+                !chatWidget.contains(e.target) &&
+                !e.target.closest('button[onclick*="openChat"]') &&
+                !e.target.closest('.pulse-rings')) {
+                closeChat();
+            }
+        });
+
+        window.openChat = openChat;
+        window.openChatWith = openChatWith;
+        window.closeChat = closeChat;
+        window.sendChat = sendChat;
+        window.handleReviewSubmit = handleReviewSubmit;
     </script>
 </body>
 </html>
