@@ -46,38 +46,6 @@
             padding-bottom: 70px;
         }
 
-        /* === INTRO CINEMA8 === */
-        #introScreen {
-            position: fixed;
-            inset: 0;
-            z-index: 100000;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 1s ease, visibility 1s ease;
-            overflow: hidden;
-        }
-        #introScreen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-        #introScreen > div {
-            position: absolute !important;
-            inset: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            padding-top: 0 !important;
-        }
-        #introScreen cinema8-player {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            display: block !important;
-        }
-
         /* === SCROLL PROGRESS === */
         #scroll-progress {
             position: fixed; top: 0; left: 0; height: 3px;
@@ -339,14 +307,6 @@
 </head>
 <body class="relative min-h-screen bg-darkNavy text-white selection:bg-neonBlue selection:text-black">
 
-    <!-- ================= INTRO CINEMA8 ================= -->
-    <div id="introScreen">
-        <div style="position: relative; width: 100%; padding-top: 56.25%;">
-            <cinema8-player media-id="PO8PAQoO" autoplay playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></cinema8-player>
-        </div>
-    </div>
-    <script src="https://static-01.cinema8.com/embed/player.js" async></script>
-
     <div id="scroll-progress"></div>
     <canvas id="particleCanvas"></canvas>
     <div id="cursor-glow"></div>
@@ -558,13 +518,13 @@
                     </div>
                 </div>
 
-                <!-- 50 SABİT FOTOĞRAF GALERİSİ -->
+                <!-- 50 DÜĞÜN TEMALI FOTOĞRAF GALERİSİ -->
                 <div class="mt-8">
                     <h4 class="text-2xl sm:text-3xl font-black text-neonBlue tracking-widest uppercase mb-2 neon-text-glow reveal">
                         ÇEKİMLERİMİZDEN KARELER
                     </h4>
                     <p class="text-gray-400 mb-10 font-bold tracking-wider text-sm reveal">
-                        <i class="fa-solid fa-camera text-neonBlue mr-2"></i>50 Profesyonel Çekim Karemiz
+                        <i class="fa-solid fa-camera text-neonBlue mr-2"></i>50 Profesyonel Düğün & Çekim Karemiz
                     </p>
                     <div id="randomGallery" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
                 </div>
@@ -792,42 +752,6 @@
     <script>
         /* ============ CONFIG ============ */
         const WHATSAPP_NUMBER = '905387061315';
-
-        /* ============ INTRO (CINEMA8) ============ */
-        (function initIntro() {
-            const introScreen = document.getElementById('introScreen');
-            const player = introScreen.querySelector('cinema8-player');
-            let introEnded = false;
-            let fallbackTimer = setTimeout(endIntro, 20000); // 20 sn güvenlik
-
-            // 1) postMessage ile Cinema8 event'lerini dinle
-            window.addEventListener('message', (e) => {
-                if (!e.origin || !e.origin.includes('cinema8')) return;
-                let data;
-                try { data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data; } catch { return; }
-                const evt = (data && (data.event || data.type || data.name)) || '';
-                if (/end|complete|finish/i.test(evt)) {
-                    endIntro();
-                }
-            });
-
-            // 2) Element üzerinden de event dinle
-            if (player) {
-                ['ended', 'complete', 'finish', 'cinema8:ended', 'video:ended'].forEach(evt => {
-                    try { player.addEventListener(evt, endIntro); } catch {}
-                });
-            }
-
-            function endIntro() {
-                if (introEnded) return;
-                introEnded = true;
-                clearTimeout(fallbackTimer);
-                introScreen.classList.add('hidden');
-                setTimeout(() => {
-                    introScreen.style.display = 'none';
-                }, 1000);
-            }
-        })();
 
         /* ============ SCROLL PROGRESS & BACK TO TOP ============ */
         const progressBar = document.getElementById('scroll-progress');
@@ -1060,7 +984,7 @@
         }
         document.addEventListener('DOMContentLoaded', loadReviews);
 
-        /* ============ SABİT VİTRİN FOTOĞRAFLARI (50 ADET) ============ */
+        /* ============ 50 SABİT DÜĞÜN FOTOĞRAFI GALERİSİ ============ */
         const galleryPhotos = [
             'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop',
@@ -1124,7 +1048,7 @@
                 div.className = 'relative group overflow-hidden rounded-xl border border-neonBlue/30 shadow-lg cursor-pointer reveal tilt-card card-shine';
                 div.style.transitionDelay = (Math.min(i, 20) * 0.03) + 's';
                 div.innerHTML = `
-                    <img src="${src}" alt="Flora Çekim ${i + 1}" class="w-full h-40 md:h-48 lg:h-52 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
+                    <img src="${src}" alt="Flora Düğün Çekim ${i + 1}" class="w-full h-40 md:h-48 lg:h-52 object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-darkNavy/90 via-darkNavy/20 to-transparent opacity-70 group-hover:opacity-40 transition-opacity"></div>
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <div class="w-12 h-12 rounded-full bg-neonBlue/90 flex items-center justify-center shadow-[0_0_30px_#00f0ff] scale-75 group-hover:scale-100 transition-transform">
